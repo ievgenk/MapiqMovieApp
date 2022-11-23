@@ -2,7 +2,7 @@ export async function fetchUpcomingMovies({ pageParam = 1 }) {
   const response = await fetch(
     `${import.meta.env.VITE_MOVIE_URL}/upcoming?api_key=${
       import.meta.env.VITE_MOVIE_DB_API
-    }&page=${pageParam}`
+    }&page=${pageParam}&language=en-US`
   );
 
   if (!response.ok) {
