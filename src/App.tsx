@@ -1,18 +1,36 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchUpcomingMovies } from "./api/api";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
 
 function App() {
-  const [params, setParams] = useSearchParams();
-  const numberOfUpcomingMovies = params.get("upcomingMovies") || 1;
+  // const [params] = useSearchParams();
+  // const numberOfUpcomingMovies = params.get("upcomingMovies") || 1;
+  // const navigate = useNavigate();
 
-  const result = useQuery({
-    queryKey: ["upcomingMovies", numberOfUpcomingMovies],
-    queryFn: () => fetchUpcomingMovies(numberOfUpcomingMovies),
-  });
-  console.log(result.data);
-  return <h1>Hello</h1>;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteQuery({
+      queryKey: ["upcomingMovies"],
+      queryFn: fetchUpcomingMovies,
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+    });
+
+  const loading = isLoading || isFetchingNextPage;
+
+  console.log(data);
+  return (
+    <>
+      <h1>Hello</h1>
+      {loading ? <h1>Loading </h1> : null}
+      <Button
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage || loading}
+      >
+        Load More
+      </Button>
+    </>
+  );
 }
 
 export default App;
