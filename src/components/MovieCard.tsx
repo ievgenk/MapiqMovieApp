@@ -23,6 +23,7 @@ export default function MovieCard({ movie, genres }: IProps) {
       direction={{ base: "column", sm: "row" }}
       overflow="hidden"
       variant="outline"
+      w={"lg"}
     >
       <Image
         objectFit="cover"

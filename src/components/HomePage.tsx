@@ -35,7 +35,7 @@ export default function HomePage() {
     <Box bgColor={"#263144"} w={"100vw"} h={"100vh"} overflow={"auto"}>
       <NavBar />
       <Container
-        maxW={"5xl"}
+        maxW={"6xl"}
         display={"flex"}
         flexDirection={"column"}
         gap={"48px"}

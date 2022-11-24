@@ -53,7 +53,12 @@ export default function MovieList({
           <Skeleton height="40px" />
         </Stack>
       ) : (
-        <List>
+        <List
+          display={"flex"}
+          flexWrap={"wrap"}
+          justifyContent={"space-between"}
+          rowGap={"20px"}
+        >
           {upcomingMovieList.map((movie) => {
             return (
               <ListItem key={movie.id}>

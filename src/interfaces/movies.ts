@@ -1,5 +1,5 @@
 export interface IUpcomingMovie {
-  backdrop_path: string;
+  backdrop_path: string | null;
   id: number;
   title: string;
   release_date: string;
