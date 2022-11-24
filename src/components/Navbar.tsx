@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 export default function NavBar() {
   return (
@@ -9,9 +9,9 @@ export default function NavBar() {
         borderBottom={"2px"}
         borderBottomColor={"#20c997"}
       >
-        <Text fontSize={"2xl"} textColor={"#04aa6a"}>
+        <Heading fontSize={"2xl"} textColor={"#04aa6a"}>
           Mapiq Movies 🍿
-        </Text>
+        </Heading>
       </Box>
     </>
   );
