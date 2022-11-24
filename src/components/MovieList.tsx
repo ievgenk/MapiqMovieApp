@@ -1,6 +1,4 @@
 import {
-  Box,
-  Text,
   Button,
   Flex,
   List,
@@ -17,6 +15,7 @@ interface IProps {
   onFetchNextPage: () => void;
   hasNextPage: boolean | undefined;
   movieGenres: IMovieGenre[];
+  onOpen: () => void;
 }
 
 export default function MovieList({
@@ -24,6 +23,7 @@ export default function MovieList({
   isLoading,
   onFetchNextPage,
   hasNextPage,
+  onOpen,
   movieGenres,
 }: IProps) {
   function establishMovieGenre(
@@ -68,6 +68,7 @@ export default function MovieList({
                     establishMovieGenre(movieGenres, movie.genre_ids) ||
                     "Unknow Genre"
                   }
+                  onOpen={onOpen}
                 />
               </ListItem>
             );

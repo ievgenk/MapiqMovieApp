@@ -12,19 +12,28 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
 
-export default function MoviePopup({ isOpen, onClose }) {
+interface IProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function MoviePopup({ isOpen, onClose }: IProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalBody>
-        <Card>
-          <CardBody>
-            <Text fontSize={"medium"}>This is Card</Text>
-          </CardBody>
-        </Card>
-      </ModalBody>
+      <ModalContent>
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalCloseButton />
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
+            Close
+          </Button>
+          <Button variant="ghost">Secondary Action</Button>
+        </ModalFooter>
+      </ModalContent>
     </Modal>
   );
 }

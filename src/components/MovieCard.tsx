@@ -14,9 +14,10 @@ import { IUpcomingMovie } from "../interfaces/movies";
 interface IProps {
   movie: IUpcomingMovie;
   genres: string[];
+  onOpen: () => void;
 }
 
-export default function MovieCard({ movie, genres }: IProps) {
+export default function MovieCard({ movie, genres, onOpen }: IProps) {
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
@@ -33,7 +34,7 @@ export default function MovieCard({ movie, genres }: IProps) {
         alt={`Movie Poster for ${movie.title}`}
       />
 
-      <Stack>
+      <Stack flex={"1"}>
         <CardBody>
           <Heading size="md">{movie.title}</Heading>
           <Box py={"2"}>
@@ -45,11 +46,12 @@ export default function MovieCard({ movie, genres }: IProps) {
           </Box>
           <Text fontSize={"lg"}>Release Date: {movie.release_date}</Text>
         </CardBody>
-        <CardFooter>
+        <CardFooter display={"flex"} alignSelf={"flex-end"}>
           <Button
             variant="solid"
             bgColor={"#20c997"}
             _hover={{ bg: "#05a869" }}
+            onClick={() => onOpen()}
           >
             Learn More
           </Button>
