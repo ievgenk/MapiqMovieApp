@@ -57,7 +57,7 @@ export default function MovieList({
           display={"flex"}
           flexWrap={"wrap"}
           justifyContent={"space-between"}
-          rowGap={"20px"}
+          rowGap={"28px"}
         >
           {upcomingMovieList.map((movie) => {
             return (

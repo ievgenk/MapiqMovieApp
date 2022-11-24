@@ -8,7 +8,6 @@ import {
   CardFooter,
   Button,
   Box,
-  Spacer,
 } from "@chakra-ui/react";
 import { IUpcomingMovie } from "../interfaces/movies";
 
@@ -22,8 +21,10 @@ export default function MovieCard({ movie, genres }: IProps) {
     <Card
       direction={{ base: "column", sm: "row" }}
       overflow="hidden"
-      variant="outline"
+      variant="elevated"
       w={"lg"}
+      backgroundColor={"whiteAlpha.800"}
+      height={"xs"}
     >
       <Image
         objectFit="cover"
@@ -35,19 +36,22 @@ export default function MovieCard({ movie, genres }: IProps) {
       <Stack>
         <CardBody>
           <Heading size="md">{movie.title}</Heading>
-
-          <Box>
-            {genres.map((genre) => (
-              <Text as={"span"} key={genre} mr={"2"}>
-                {genre}
+          <Box py={"2"}>
+            {genres.map((genre, index, arr) => (
+              <Text fontSize={"lg"} as={"span"} key={genre} mr={"2"}>
+                {genre} {index < arr.length - 1 ? "-" : null}
               </Text>
             ))}
           </Box>
-          <Text py={"2"}>Release date: {movie.release_date}</Text>
+          <Text fontSize={"lg"}>Release Date: {movie.release_date}</Text>
         </CardBody>
         <CardFooter>
-          <Button variant="solid" colorScheme="blue">
-            Buy Latte
+          <Button
+            variant="solid"
+            bgColor={"#20c997"}
+            _hover={{ bg: "#05a869" }}
+          >
+            Learn More
           </Button>
         </CardFooter>
       </Stack>
