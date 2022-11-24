@@ -3,7 +3,7 @@ import { Center, Flex, Heading } from "@chakra-ui/react";
 export default function MainMessageSection() {
   return (
     <>
-      <Flex
+      <Center
         mt={"28"}
         border={"4px"}
         p={"24"}
@@ -11,7 +11,15 @@ export default function MainMessageSection() {
         rounded={"lg"}
         shadow={"dark-lg"}
       >
-        <Center>
+        <Flex direction={"column"} justifyContent={"center"}>
+          <Heading
+            textAlign={"center"}
+            color={"#04aa6a"}
+            fontSize={"5xl"}
+            textTransform={"capitalize"}
+          >
+            Welcome to Mapiq Movies.
+          </Heading>
           <Heading
             textAlign={"center"}
             color={"#04aa6a"}
@@ -20,8 +28,8 @@ export default function MainMessageSection() {
           >
             Here you can find all of your favourite upcoming movies !
           </Heading>
-        </Center>
-      </Flex>
+        </Flex>
+      </Center>
     </>
   );
 }

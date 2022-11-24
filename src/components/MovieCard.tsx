@@ -42,8 +42,7 @@ export default function MovieCard({ movie, genres }: IProps) {
               </Text>
             ))}
           </Box>
-
-          <Text py="2">{movie.overview}</Text>
+          <Text py={"2"}>Release date: {movie.release_date}</Text>
         </CardBody>
         <CardFooter>
           <Button variant="solid" colorScheme="blue">
