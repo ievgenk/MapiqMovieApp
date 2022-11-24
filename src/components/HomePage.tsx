@@ -1,10 +1,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchUpcomingMovies } from "../api/api";
-import { Button } from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { IUpcomingMovie } from "../interfaces/movies";
 import { Link } from "react-router-dom";
+import MovieCard from "./MovieCard";
+import NavBar from "./Navbar";
 
 export default function HomePage() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ["upcomingMovies"],
@@ -19,6 +22,7 @@ export default function HomePage() {
   console.log(upcomingMovies);
   return (
     <>
+      <NavBar />
       <h1>Hello</h1>
       <Button
         onClick={() => fetchNextPage()}
@@ -34,7 +38,7 @@ export default function HomePage() {
           {upcomingMovies?.map((movie: IUpcomingMovie) => {
             return (
               <li key={movie.id}>
-                <Link to={`movies/${movie.id}`}>
+                <Link to={`movie/${movie.id}`}>
                   {movie.title} - {movie.release_date}
                 </Link>{" "}
               </li>
@@ -42,6 +46,7 @@ export default function HomePage() {
           })}
         </ul>
       )}
+      {/* <MovieCard isOpen={isOpen} onClose={onClose} /> */}
     </>
   );
 }

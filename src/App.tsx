@@ -2,9 +2,6 @@
 import HomePage from "./components/HomePage";
 
 function App() {
-  // const [params] = useSearchParams();
-  // const numberOfUpcomingMovies = params.get("upcomingMovies") || 1;
-  // const navigate = useNavigate();
   return <HomePage />;
 }
 
