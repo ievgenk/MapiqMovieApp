@@ -1,11 +1,23 @@
-import { Card, Image, Stack, CardBody, Text, Heading } from "@chakra-ui/react";
+import {
+  Card,
+  Image,
+  Stack,
+  CardBody,
+  Text,
+  Heading,
+  CardFooter,
+  Button,
+  Box,
+  Spacer,
+} from "@chakra-ui/react";
 import { IUpcomingMovie } from "../interfaces/movies";
 
 interface IProps {
   movie: IUpcomingMovie;
+  genres: string[];
 }
 
-export default function MovieCard({ movie }: IProps) {
+export default function MovieCard({ movie, genres }: IProps) {
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
@@ -22,8 +34,22 @@ export default function MovieCard({ movie }: IProps) {
       <Stack>
         <CardBody>
           <Heading size="md">{movie.title}</Heading>
+
+          <Box>
+            {genres.map((genre) => (
+              <Text as={"span"} key={genre} mr={"2"}>
+                {genre}
+              </Text>
+            ))}
+          </Box>
+
           <Text py="2">{movie.overview}</Text>
         </CardBody>
+        <CardFooter>
+          <Button variant="solid" colorScheme="blue">
+            Buy Latte
+          </Button>
+        </CardFooter>
       </Stack>
     </Card>
   );

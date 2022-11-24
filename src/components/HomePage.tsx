@@ -1,5 +1,5 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchUpcomingMovies } from "../api/api";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { fetchMovieGenres, fetchUpcomingMovies } from "../api/api";
 import { Button, Container, Box, useDisclosure } from "@chakra-ui/react";
 import { IUpcomingMovie } from "../interfaces/movies";
 import { Link } from "react-router-dom";
@@ -18,12 +18,19 @@ export default function HomePage() {
       refetchOnWindowFocus: false,
     });
 
-  const loading = status === "loading" || isFetchingNextPage;
+  const { data: movieGenres, isLoading: movieGenresLoading } = useQuery({
+    queryKey: ["movieGenres"],
+    queryFn: fetchMovieGenres,
+    refetchOnWindowFocus: false,
+  });
+
+  const loading =
+    status === "loading" || isFetchingNextPage || movieGenresLoading;
   const upcomingMovies = data?.pages
     .map((page) => page.response)
     .flat() as IUpcomingMovie[];
 
-  console.log(upcomingMovies);
+  console.log(movieGenres);
   return (
     <Box bgColor={"#263144"} w={"100vw"} h={"100vh"} overflow={"auto"}>
       <NavBar />
@@ -39,6 +46,7 @@ export default function HomePage() {
           isLoading={loading}
           onFetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
+          movieGenres={movieGenres}
         />
         {/* <MovieCard isOpen={isOpen} onClose={onClose} /> */}
       </Container>
