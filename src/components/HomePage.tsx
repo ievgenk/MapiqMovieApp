@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { fetchMovieGenres, fetchUpcomingMovies } from "../api/api";
-import { Container, Box, useDisclosure } from "@chakra-ui/react";
+import { Container, Box, useDisclosure, useToast } from "@chakra-ui/react";
 import { IUpcomingMovie } from "../interfaces/movies";
 import NavBar from "./Navbar";
 import MainMessageSection from "./MainMessageSection";
@@ -10,20 +10,33 @@ import Footer from "./Footer";
 
 export default function HomePage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useInfiniteQuery({
-      queryKey: ["upcomingMovies"],
-      queryFn: fetchUpcomingMovies,
-      getNextPageParam: (lastPage) => lastPage.nextPage,
-      refetchOnWindowFocus: false,
-    });
+  const toast = useToast();
 
-  const { data: movieGenres, isLoading: movieGenresLoading } = useQuery({
+  const {
+    isError: upcomingMoviesError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["upcomingMovies"],
+    queryFn: fetchUpcomingMovies,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    isError: movieGenreError,
+    data: movieGenres,
+    isLoading: movieGenresLoading,
+  } = useQuery({
     queryKey: ["movieGenres"],
     queryFn: fetchMovieGenres,
     refetchOnWindowFocus: false,
   });
 
+  const errorPresent = upcomingMoviesError || movieGenreError;
   const loading =
     status === "loading" || isFetchingNextPage || movieGenresLoading;
   const upcomingMovies = data?.pages
@@ -51,6 +64,9 @@ export default function HomePage() {
         <MoviePopup isOpen={isOpen} onClose={onClose} />
       </Container>
       <Footer />
+      {errorPresent
+        ? toast({ title: "Data Fetching Error", status: "error" })
+        : null}
     </Box>
   );
 }
