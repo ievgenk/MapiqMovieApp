@@ -33,7 +33,6 @@ export default function MovieModal({
   movie,
   movieGenres,
 }: IProps) {
-  console.log(movieGenres);
   const movieGenreNames = movie
     ? establishMovieGenre(movieGenres, movie.genre_ids)
     : [];

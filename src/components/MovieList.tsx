@@ -70,11 +70,15 @@ export default function MovieList({
 
       <Button
         onClick={() => onFetchNextPage()}
+        size={"lg"}
+        variant="solid"
+        bgColor={"#20c997"}
+        _hover={{ bg: "#05a869" }}
         disabled={!hasNextPage || isLoading}
         maxW={"fit-content"}
         alignSelf={"flex-end"}
       >
-        Load More
+        Load More Movies
       </Button>
     </Flex>
   );

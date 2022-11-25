@@ -5,7 +5,6 @@ import { IUpcomingMovie } from "../interfaces/movies";
 import NavBar from "./Navbar";
 import MainMessageSection from "./MainMessageSection";
 import MovieList from "./MovieList";
-import MoviePopup from "./MovieModal";
 import Footer from "./Footer";
 import { useState } from "react";
 import MovieModal from "./MovieModal";
