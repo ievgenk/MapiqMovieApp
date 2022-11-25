@@ -5,16 +5,19 @@ import { IUpcomingMovie } from "../interfaces/movies";
 import NavBar from "./Navbar";
 import MainMessageSection from "./MainMessageSection";
 import MovieList from "./MovieList";
-import MoviePopup from "./MoviePopup";
+import MoviePopup from "./MovieModal";
 import Footer from "./Footer";
+import { useState } from "react";
+import MovieModal from "./MovieModal";
 
 export default function HomePage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const [openMovie, setOpenMovie] = useState<IUpcomingMovie | null>(null);
 
   const {
     isError: upcomingMoviesError,
-    data,
+    data: upcomingMovies,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -39,9 +42,16 @@ export default function HomePage() {
   const errorPresent = upcomingMoviesError || movieGenreError;
   const loading =
     status === "loading" || isFetchingNextPage || movieGenresLoading;
-  const upcomingMovies = data?.pages
+  const fetchedUpcomingMovies = upcomingMovies?.pages
     .map((page) => page.response)
     .flat() as IUpcomingMovie[];
+
+  function handleOpenMovieDetails(movieId: number) {
+    const movieToOpen =
+      fetchedUpcomingMovies.find((movie) => movie.id === movieId) || null;
+    setOpenMovie(movieToOpen);
+    onOpen();
+  }
 
   return (
     <Box bgColor={"#263144"} w={"100vw"} h={"100vh"} overflow={"auto"}>
@@ -54,14 +64,19 @@ export default function HomePage() {
       >
         <MainMessageSection />
         <MovieList
-          upcomingMovieList={upcomingMovies}
+          upcomingMovieList={fetchedUpcomingMovies}
           isLoading={loading}
           onFetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}
           movieGenres={movieGenres}
-          onOpen={onOpen}
+          onOpen={handleOpenMovieDetails}
         />
-        <MoviePopup isOpen={isOpen} onClose={onClose} />
+        <MovieModal
+          movieGenres={movieGenres}
+          isOpen={isOpen}
+          onClose={onClose}
+          movie={openMovie}
+        />
       </Container>
       <Footer />
       {errorPresent

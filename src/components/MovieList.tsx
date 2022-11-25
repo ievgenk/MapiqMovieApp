@@ -7,6 +7,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { IMovieGenre, IUpcomingMovie } from "../interfaces/movies";
+import { establishMovieGenre } from "../utils/util";
 import MovieCard from "./MovieCard";
 
 interface IProps {
@@ -15,7 +16,7 @@ interface IProps {
   onFetchNextPage: () => void;
   hasNextPage: boolean | undefined;
   movieGenres: IMovieGenre[];
-  onOpen: () => void;
+  onOpen: (movieId: number) => void;
 }
 
 export default function MovieList({
@@ -26,15 +27,6 @@ export default function MovieList({
   onOpen,
   movieGenres,
 }: IProps) {
-  function establishMovieGenre(
-    movieGenres: IMovieGenre[],
-    movieGenreIds: number[]
-  ) {
-    return movieGenres
-      .filter((movieGenre) => movieGenreIds.includes(movieGenre.id))
-      .map((movieGenre) => movieGenre.name);
-  }
-
   return (
     <Flex direction={"column"} justifyContent={"center"} gap={"20px"}>
       {isLoading ? (

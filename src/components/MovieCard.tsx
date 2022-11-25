@@ -14,7 +14,7 @@ import { IUpcomingMovie } from "../interfaces/movies";
 interface IProps {
   movie: IUpcomingMovie;
   genres: string[];
-  onOpen: () => void;
+  onOpen: (movieId: number) => void;
 }
 
 export default function MovieCard({ movie, genres, onOpen }: IProps) {
@@ -51,7 +51,7 @@ export default function MovieCard({ movie, genres, onOpen }: IProps) {
             variant="solid"
             bgColor={"#20c997"}
             _hover={{ bg: "#05a869" }}
-            onClick={() => onOpen()}
+            onClick={() => onOpen(movie.id)}
           >
             Learn More
           </Button>
