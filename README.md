@@ -2,6 +2,8 @@
 
 Mapiq Movie App is a simple MVP / Demo app that showcases latest upcoming movies for movie enthusiasts. 📽️
 
+[Live Demo Of The App](https://mapiq-movies-dqpa7kiel-ievgenk1.vercel.app/)
+
 ## Running The App
 
 1. Have Node.js installed on your system
